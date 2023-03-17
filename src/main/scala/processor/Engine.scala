@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SQLContext
 
 object Engine {
-  val sparkConf = new SparkConf()
+
 
   val localSparkConf = new SparkConf().setAppName("SparkAPIServer").setMaster("local[*]")
   var currentActiveSQLContext:SQLContext = null
@@ -17,7 +17,7 @@ object Engine {
         currentActiveSparkContext.stop()
         Thread.sleep(60000)
         currentActiveSparkContext = {
-          val sc = new SparkContext(sparkConf)
+          val sc = new SparkContext(localSparkConf)
           sc.setLocalProperty("spark.scheduler.pool", "default")
           import java.util.concurrent.Executors
 
@@ -30,7 +30,7 @@ object Engine {
     }
     else {
       currentActiveSparkContext = {
-        val sc = new SparkContext(sparkConf)
+        val sc = new SparkContext(localSparkConf)
         sc.setLocalProperty("spark.scheduler.pool", "default")
         import java.util.concurrent.Executors
         import concurrent.ExecutionContext

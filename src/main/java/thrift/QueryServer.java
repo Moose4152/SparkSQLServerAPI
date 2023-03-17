@@ -5,11 +5,11 @@ import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
-import server.QueryHandler;
+import server.NQueryHandler;
 public class QueryServer {
     public static SparkAPI.Processor processor;
 
-    public void startServer(final int port, QueryHandler h){
+    public void startServer(final int port, NQueryHandler h){
         try{
             processor = new SparkAPI.Processor(h);
             Runnable simple = new Runnable() {
